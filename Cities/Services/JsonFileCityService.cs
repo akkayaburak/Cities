@@ -25,7 +25,7 @@ namespace Cities.Services
             }
         }
 
-        public IEnumerable<City> GetCities()
+        private IEnumerable<City> DeserializeCity()
         {
             using var jsonFileReader = File.OpenText(JsonFileName);
             return JsonSerializer.Deserialize<City[]>(jsonFileReader.ReadToEnd(),
@@ -33,6 +33,19 @@ namespace Cities.Services
                 {
                     PropertyNameCaseInsensitive = true
                 });
+        }
+
+        public IEnumerable<City> GetCities()
+        {
+            return DeserializeCity();
+        }
+        public City GetCityByPlate(string plate)
+        {
+            return DeserializeCity().Where(q => q.Plate == plate).FirstOrDefault();
+        }
+        public City GetCityByName(string cityName)
+        {
+            return DeserializeCity().Where(q => q.Name == cityName).FirstOrDefault();
         }
     }
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Cities.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("")]
     [ApiController]
     public class CitiesController : ControllerBase
     {
@@ -24,5 +24,22 @@ namespace Cities.Controllers
         {
             return CityService.GetCities();
         }
+
+        [Route("/plate/{plate}")]
+        [HttpGet]
+        public City GetCityByPlate(int plate)
+        {
+            string plt = Convert.ToString(plate);
+            City city = CityService.GetCityByPlate(plt);
+            return city ?? null;
+        }
+        [Route("/{city}")]
+        [HttpGet]
+        public City GetCityByName(string cityName)
+        {
+            City city = CityService.GetCityByName(cityName);
+            return city ?? null;
+        }
+
     }
 }
