@@ -33,7 +33,7 @@ namespace Cities.Controllers
             City city = CityService.GetCityByPlate(plt);
             return city ?? null;
         }
-        [Route("/{city}")]
+        [Route("/city")]
         [HttpGet]
         public City GetCityByName(string cityName)
         {
